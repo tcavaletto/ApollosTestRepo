@@ -1,0 +1,39 @@
+{
+  "name": "apollos-templates",
+  "scripts": {
+    "setup": "lerna run setup",
+    "start": "yarn watch:client & lerna run start --parallel",
+    "watch:client": "(cd apolloschurchapp && yarn wml start)",
+    "link-packages": "watchman watch-del-all && yarn && lerna run link-packages --parallel && (cd apollos-church-api && yalc update)",
+    "link-doctor": "node ./scripts/link-doctor.js",
+    "unlink-packages": "lerna run unlink-packages --parallel && yarn --check-files",
+    "lint": "lerna run lint --stream",
+    "test": "lerna run test --stream",
+    "ios": "lerna run ios --parallel",
+    "android": "lerna run android --parallel",
+    "pods": "lerna run pods --parallel",
+    "latest": "lerna run latest",
+    "canary": "lerna run canary",
+    "encrypt": "/usr/local/opt/openssl@1.1/bin/openssl enc -aes-256-cbc -pbkdf2 -iter 20000 -in",
+    "decrypt": "/usr/local/opt/openssl@1.1/bin/openssl enc -d -aes-256-cbc -pbkdf2 -iter 20000 -in"
+  },
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "wml": "^0.0.83",
+    "yalc": "^1.0.0-pre.35",
+    "chalk": "^4.0.0"
+  },
+  "dependencies": {},
+  "workspaces": {
+    "packages": [
+      "apolloschurchapp",
+      "apollos-church-api"
+    ],
+    "nohoist": [
+      "*",
+      "**",
+      "**/**"
+    ]
+  }
+}
